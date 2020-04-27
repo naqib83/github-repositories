@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <input name="query" ngModel required #query="ngModel">
+      <button>Search</button>
+    </form>
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">URL</th>
+        <th scope="col">Language</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let repository of repositories" class="{{repository.status === true ? 'table-primary' : ''}}">
+        <th scope="row">{{repository.id}}</th>
+        <th>{{repository.name}}</th>
+        <td><a href="{{repository.url}}" target="_new">Check Repo</a></td>
+        <td>@{{repository.language}}</td>
+        <td>
+            <button (click)="bookmarkIt(repository)">{{repository.status === true ? 'Unbookmark' : 'Bookmark'}}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row" *ngIf="sessionedRepos?.length > 0">
+  <h2>Output From User's Session</h2>
+    <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">URL</th>
+        <th scope="col">Language</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let repo of sessionedRepos" class="table-primary">
+        <th scope="row">{{repo.id}}</th>
+        <th>{{repo.name}}</th>
+        <td><a href="{{repo.url}}" target="_new">Repo Link</a></td>
+        <td>@{{repo.language}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
